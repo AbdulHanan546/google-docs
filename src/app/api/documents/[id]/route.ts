@@ -140,6 +140,9 @@ export async function DELETE(
       );
     }
 
+    // Explicitly delete related records to ensure cascade on all SQLite runtimes
+    await prisma.documentShare.deleteMany({ where: { documentId: id } });
+    await prisma.documentVersion.deleteMany({ where: { documentId: id } });
     await prisma.document.delete({
       where: { id },
     });

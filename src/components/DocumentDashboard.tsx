@@ -92,10 +92,16 @@ export function DocumentDashboard() {
         headers: { "x-user-id": currentUser.id },
       });
       if (res.ok) {
+        setOwnedDocs((prev) => prev.filter((d) => d.id !== docId));
+        setSharedDocs((prev) => prev.filter((d) => d.id !== docId));
         fetchDocuments();
+      } else {
+        const data = await res.json().catch(() => ({}));
+        alert(data.error || "Failed to delete document");
       }
     } catch (err) {
       console.error(err);
+      alert("An error occurred while deleting the document.");
     }
   };
 

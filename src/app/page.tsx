@@ -1,16 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { Navbar } from "@/components/Navbar";
 import { DocumentDashboard } from "@/components/DocumentDashboard";
-import { FileUploadModal } from "@/components/FileUploadModal";
 
 export default function Home() {
-  const [isUploadOpen, setIsUploadOpen] = useState(false);
-
   return (
     <div className="min-h-screen flex flex-col bg-zinc-50/50 dark:bg-zinc-950">
-      <Navbar onOpenUpload={() => setIsUploadOpen(true)} />
+      <Navbar />
       <main className="flex-1">
         <DocumentDashboard />
       </main>
@@ -20,7 +17,6 @@ export default function Home() {
           <span>Collaborative Document Editor</span>
         </div>
       </footer>
-      <FileUploadModal isOpen={isUploadOpen} onClose={() => setIsUploadOpen(false)} />
     </div>
   );
 }

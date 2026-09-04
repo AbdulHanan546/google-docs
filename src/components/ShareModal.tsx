@@ -184,11 +184,11 @@ export function ShareModal({
             <label className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
               Add Collaborator
             </label>
-            <div className="flex flex-col sm:flex-row gap-2">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
               <select
                 value={selectedUserId}
                 onChange={(e) => setSelectedUserId(e.target.value)}
-                className="flex-1 rounded-lg border border-zinc-300 bg-white px-3 py-2 text-xs text-zinc-800 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-200"
+                className="min-w-0 flex-1 h-9 rounded-lg border border-zinc-300 bg-white px-3 text-xs text-zinc-800 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-200"
               >
                 <option value="">Select a team member...</option>
                 {candidateUsers.map((user) => (
@@ -201,17 +201,17 @@ export function ShareModal({
               <select
                 value={selectedPermission}
                 onChange={(e) => setSelectedPermission(e.target.value as "EDITOR" | "VIEWER")}
-                className="rounded-lg border border-zinc-300 bg-white px-3 py-2 text-xs text-zinc-800 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-200"
+                className="shrink-0 h-9 rounded-lg border border-zinc-300 bg-white px-3 text-xs text-zinc-800 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-200"
               >
-                <option value="EDITOR">Editor (Can edit)</option>
-                <option value="VIEWER">Viewer (Read-only)</option>
+                <option value="EDITOR">Editor</option>
+                <option value="VIEWER">Viewer</option>
               </select>
 
               <button
                 type="button"
                 disabled={!selectedUserId || isSubmitting}
                 onClick={() => handleAddOrUpdateShare()}
-                className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-indigo-600 px-4 py-2 text-xs font-medium text-white hover:bg-indigo-700 disabled:opacity-50 transition-colors"
+                className="shrink-0 h-9 inline-flex items-center justify-center gap-1.5 rounded-lg bg-indigo-600 px-4 text-xs font-medium text-white hover:bg-indigo-700 disabled:opacity-50 transition-colors shadow-xs"
               >
                 {isSubmitting ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <UserPlus className="h-3.5 w-3.5" />}
                 <span>Share</span>

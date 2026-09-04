@@ -6,50 +6,17 @@ import { useRouter } from "next/navigation";
 import { useUser } from "@/context/UserContext";
 import {
   FileText,
-  Plus,
-  Upload,
   UserCheck,
   ChevronDown,
-  Sparkles,
 } from "lucide-react";
 
 interface NavbarProps {
-  onOpenUpload?: () => void;
   isEditorPage?: boolean;
 }
 
-export function Navbar({ onOpenUpload, isEditorPage }: NavbarProps) {
+export function Navbar({ isEditorPage }: NavbarProps) {
   const { currentUser, switchUser, allUsers } = useUser();
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [isCreating, setIsCreating] = useState(false);
-  const router = useRouter();
-
-  const handleCreateDocument = async () => {
-    try {
-      setIsCreating(true);
-      const res = await fetch("/api/documents", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-user-id": currentUser.id,
-        },
-        body: JSON.stringify({
-          title: "Untitled Document",
-          content: "<p>Start typing here...</p>",
-          userId: currentUser.id,
-        }),
-      });
-
-      if (res.ok) {
-        const newDoc = await res.json();
-        router.push(`/documents/${newDoc.id}`);
-      }
-    } catch (err) {
-      console.error("Failed to create document:", err);
-    } finally {
-      setIsCreating(false);
-    }
-  };
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-zinc-200 bg-white/90 backdrop-blur-md dark:border-zinc-800 dark:bg-zinc-950/90">
@@ -70,29 +37,8 @@ export function Navbar({ onOpenUpload, isEditorPage }: NavbarProps) {
           </Link>
         </div>
 
-        {/* Right: Actions & User Switcher */}
+        {/* Right: User Switcher */}
         <div className="flex items-center gap-2.5 sm:gap-3">
-          {!isEditorPage && onOpenUpload && (
-            <button
-              onClick={onOpenUpload}
-              className="inline-flex items-center gap-1.5 rounded-lg border border-zinc-200 bg-white px-3 py-2 text-xs sm:text-sm font-medium text-zinc-700 shadow-xs hover:bg-zinc-50 hover:text-zinc-900 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300 dark:hover:bg-zinc-800 transition-colors"
-            >
-              <Upload className="h-4 w-4 text-zinc-500" />
-              <span className="hidden sm:inline">Import</span> File
-            </button>
-          )}
-
-          {!isEditorPage && (
-            <button
-              onClick={handleCreateDocument}
-              disabled={isCreating}
-              className="inline-flex items-center gap-1.5 rounded-lg bg-indigo-600 px-3.5 py-2 text-xs sm:text-sm font-medium text-white shadow-xs hover:bg-indigo-700 disabled:opacity-50 transition-colors"
-            >
-              <Plus className="h-4 w-4" />
-              {isCreating ? "Creating..." : "New Doc"}
-            </button>
-          )}
-
           {/* User Switcher Dropdown */}
           <div className="relative">
             <button
