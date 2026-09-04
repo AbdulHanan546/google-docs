@@ -2,6 +2,7 @@
 
 **Candidate**: Abdul Hanan  
 **Email**: abdlhanan987@gmail.com  
+**Google Drive Folder**: https://drive.google.com/drive/folders/1K_WRUQwQl43Z1aK4W1d5aCzIn7nhDtGL?usp=sharing  
 **Assessment**: Ajaia LLC - AI-Native Full Stack Developer Take-Home  
 **Submission Date**: September 2026  
 
