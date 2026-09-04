@@ -28,11 +28,11 @@
 To review the application without registration friction, use the **User Switcher** in the top-right header:
 
 1. **Alice Chen** (`user_alice`) — *Product Lead*
-   - Owner of: *Ajaia AI Productivity Suite - Q3 Roadmap*
+   - Owner of: *Q3 Product Velocity Roadmap*
    - Viewer of: *Design System Tokens & Accessibility Standards*
 2. **Bob Miller** (`user_bob`) — *Staff Designer*
    - Owner of: *Design System Tokens & Accessibility Standards*
-   - Editor of: *Ajaia AI Productivity Suite - Q3 Roadmap*
+   - Editor of: *Q3 Product Velocity Roadmap*
 3. **Charlie Patel** (`user_charlie`) — *Founding Engineer*
    - Owner of: *Infrastructure & DB Engine Evaluation (Internal)* (Private)
 

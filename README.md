@@ -1,6 +1,6 @@
-# Ajaia Docs — AI-Native Collaborative Document Editor
+# Ajaia Docs — Collaborative Document Editor
 
-> A lightweight, collaborative document workspace inspired by Google Docs, built for **Ajaia LLC's AI-Native Full Stack Developer Assessment**.
+> A lightweight, collaborative document workspace inspired by Google Docs, built for **Ajaia LLC's Full Stack Developer Assessment**.
 
 ---
 
@@ -43,8 +43,8 @@ To provide zero-friction review without requiring manual registration or auth se
 
 | User | Role | Default Accessible Documents |
 | :--- | :--- | :--- |
-| **Alice Chen** | *Product Lead* | • **Owner**: *Ajaia AI Productivity Suite - Q3 Roadmap*<br/>• **Viewer**: *Design System Tokens & Accessibility Standards* |
-| **Bob Miller** | *Staff Designer* | • **Owner**: *Design System Tokens & Accessibility Standards*<br/>• **Editor**: *Ajaia AI Productivity Suite - Q3 Roadmap* |
+| **Alice Chen** | *Product Lead* | • **Owner**: *Q3 Product Velocity Roadmap*<br/>• **Viewer**: *Design System Tokens & Accessibility Standards* |
+| **Bob Miller** | *Staff Designer* | • **Owner**: *Design System Tokens & Accessibility Standards*<br/>• **Editor**: *Q3 Product Velocity Roadmap* |
 | **Charlie Patel** | *Founding Engineer*| • **Owner**: *Infrastructure & DB Engine Evaluation (Internal)* (Private) |
 
 Switching users immediately updates dashboard permissions, read/write access, and available documents.
@@ -70,17 +70,11 @@ Switching users immediately updates dashboard permissions, read/write access, an
 ### 3. Granular Sharing & Access Control
 - **Document Ownership**: Documents clearly designated as "Owned by me" vs "Shared with me".
 - **Collaborator Management**: Document owners can grant access to team members with explicit roles:
-  - **Editor**: Can modify document title, body content, and run AI tools.
+  - **Editor**: Can modify document title and body content.
   - **Viewer**: Read-only access. Toolbar is locked, and a view-only warning banner is displayed.
 - **Revocation**: Document owners can remove collaborator access in one click.
 
-### 4. Native AI Copilot Toolbar
-- **✨ Summarize Document**: Generates an executive summary with key takeaways directly inside the document.
-- **✨ Polish & Refine**: Rewrites document content for clarity and executive tone.
-- **✨ Action Item Extractor**: Identifies tasks, deliverables, and assignees.
-- *Resilience*: Works with Google Gemini / OpenAI API keys, with an embedded deterministic fallback engine to guarantee 100% testability without API key dependencies.
-
-### 5. Export & Sharing
+### 4. Export & Print
 - **1-Click Export to Markdown**: Downloads the current document as a clean `.md` file.
 - **Print / PDF**: Formats document for clean, distraction-free printing or PDF generation.
 

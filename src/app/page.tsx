@@ -14,16 +14,10 @@ export default function Home() {
       <main className="flex-1">
         <DocumentDashboard />
       </main>
-      <footer className="border-t border-zinc-200/80 bg-white py-6 dark:border-zinc-800/80 dark:bg-zinc-900/50">
-        <div className="mx-auto flex max-w-7xl flex-col sm:flex-row items-center justify-between px-4 sm:px-6 text-xs text-zinc-500 dark:text-zinc-400">
-          <div>
-            Built for <strong>Ajaia LLC</strong> • AI-Native Full Stack Developer Assessment
-          </div>
-          <div className="mt-2 sm:mt-0 flex items-center gap-4">
-            <span>Persistence: SQLite + Prisma</span>
-            <span>Editor: TipTap ProseMirror</span>
-            <span>AI: Integrated Copilot</span>
-          </div>
+      <footer className="border-t border-zinc-200/80 bg-white py-5 dark:border-zinc-800/80 dark:bg-zinc-900/50">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 text-xs text-zinc-500 dark:text-zinc-400">
+          <span>&copy; {new Date().getFullYear()} Ajaia Workspace. All rights reserved.</span>
+          <span>Collaborative Document Editor</span>
         </div>
       </footer>
       <FileUploadModal isOpen={isUploadOpen} onClose={() => setIsUploadOpen(false)} />

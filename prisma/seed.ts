@@ -48,9 +48,9 @@ async function main() {
   const doc1 = await prisma.document.create({
     data: {
       id: "doc_roadmap_q3",
-      title: "Ajaia AI Productivity Suite - Q3 Roadmap",
+      title: "Q3 Product Velocity Roadmap",
       ownerId: alice.id,
-      content: `<h1>Ajaia AI Productivity Suite - Q3 Roadmap</h1><p><strong>Executive Summary:</strong> Accelerating cross-functional velocity through unified real-time document intelligence.</p><h2>Key Objectives</h2><ul><li>Ship lightweight collaborative document editor with native AI assistance.</li><li>Enable single-click file import (.md, .txt) to active drafts.</li><li>Deliver intuitive role-based sharing model (Viewer vs Editor).</li></ul><h2>Action Items</h2><ul><li>Conduct architecture review on CRDT vs operational transform tradeoffs.</li><li>Benchmark client-side TipTap editor performance on 50-page docs.</li><li>Finalize unlisted walkthrough video for executive assessment.</li></ul>`,
+      content: `<h1>Q3 Product Velocity Roadmap</h1><p><strong>Executive Summary:</strong> Accelerating cross-functional velocity through unified real-time document workflows.</p><h2>Key Objectives</h2><ul><li>Ship lightweight collaborative document editor with rich-text formatting.</li><li>Enable single-click file import (.md, .txt) to active drafts.</li><li>Deliver intuitive role-based sharing model (Viewer vs Editor).</li></ul><h2>Action Items</h2><ul><li>Conduct architecture review on CRDT vs operational transform tradeoffs.</li><li>Benchmark client-side TipTap editor performance on 50-page docs.</li><li>Deploy production-ready build for team evaluation.</li></ul>`,
     },
   });
 

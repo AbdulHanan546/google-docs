@@ -8,14 +8,14 @@
 
 ## 1. Executive Summary & Design Goals
 
-The objective of this assignment is to ship a robust, lightweight collaborative document editor inspired by Google Docs within a strict 4–6 hour timebox. Rather than attempting a shallow recreation of every Google Docs feature, our architecture prioritizes **depth in core user workflows**, **bulletproof persistence**, **clean multi-user access control**, and **native AI integration**.
+The objective of this assignment is to ship a robust, lightweight collaborative document editor inspired by Google Docs within a strict 4–6 hour timebox. Rather than attempting a shallow recreation of every Google Docs feature, our architecture prioritizes **depth in core user workflows**, **bulletproof persistence**, and **clean multi-user access control**.
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                    Next.js App Router UI                    │
 │  ┌──────────────────────┐         ┌──────────────────────┐  │
 │  │ Document Dashboard   │         │ TipTap Editor Canvas │  │
-│  │ (Owned vs Shared)    │         │ (Autosave + AI Bar)  │  │
+│  │ (Owned vs Shared)    │         │ (Autosave Engine)    │  │
 │  └──────────┬───────────┘         └──────────┬───────────┘  │
 └─────────────┼────────────────────────────────┼──────────────┘
               │                                │
@@ -50,10 +50,6 @@ The objective of this assignment is to ship a robust, lightweight collaborative 
 ### C. Authentication Strategy: Mock Header & Seeded User Switcher
 - **Decision**: Implemented an in-app **Instant User Switcher** with 3 seeded personas (`Alice [Product Lead]`, `Bob [Staff Designer]`, `Charlie [Founding Engineer]`).
 - **Rationale**: Full Auth0/NextAuth setup introduces OAuth redirect callbacks, environment secret requirements, and email verification friction for reviewers. The switcher simulates realistic role-based access control instantly from the browser header.
-
-### D. AI Copilot: Hybrid Cloud + Embedded Deterministic Engine
-- **Decision**: Implemented a dual-path AI copilot in `/api/ai`. If `GEMINI_API_KEY` or `OPENAI_API_KEY` is present, it invokes Gemini 1.5 Flash. If not, it falls back to an embedded text transformer engine.
-- **Rationale**: Ensures the reviewer never encounters a 500 error or broken feature due to missing API keys or quota exhaustion, while still demonstrating production AI prompt orchestration and streaming-ready endpoints.
 
 ---
 
@@ -98,7 +94,6 @@ model DocumentShare {
 | :--- | :---: | :---: | :---: | :---: |
 | **View Document** | ✅ Allowed | ✅ Allowed | ✅ Allowed | ❌ 403 Forbidden |
 | **Edit Content / Title** | ✅ Allowed | ✅ Allowed | ❌ 403 (Read-Only) | ❌ 403 Forbidden |
-| **Run AI Assistant** | ✅ Allowed | ✅ Allowed | ❌ 403 (Read-Only) | ❌ 403 Forbidden |
 | **Manage Shares** | ✅ Allowed | ❌ Denied | ❌ Denied | ❌ 403 Forbidden |
 | **Delete Document** | ✅ Allowed | ❌ Denied | ❌ Denied | ❌ 403 Forbidden |
 
@@ -112,13 +107,12 @@ model DocumentShare {
 3. File upload & conversion: Drag-and-drop `.md` and `.txt` files into fully formatted documents with preview.
 4. Role-based sharing: Add/remove collaborators with explicit Editor or Viewer permissions.
 5. Dynamic user switcher demonstrating isolated dashboard views ("Owned by me" vs "Shared with me").
-6. AI Copilot: Summarize, Polish & Refine, Action Item extraction.
-7. Export: 1-click download as Markdown (.md) and Print/PDF.
-8. 8/8 passing automated tests for permissions and file parsing.
+6. Export: 1-click download as Markdown (.md) and Print/PDF.
+7. 8/8 passing automated tests for permissions and file parsing.
 
 ### ⚠️ Intentionally Deprioritized / Incomplete:
-1. **Multiplayer WebSocket Cursor Presence**: Full CRDT (Y.js + WebSockets) for concurrent multi-caret typing was deprioritized to guarantee rock-solid single-source-of-truth persistence, access control, and AI integration within the 4–6 hour window.
-2. **Granular Inline Comment Threads**: Mentions and highlight-anchored comments were deferred in favor of full document AI assistance.
+1. **Multiplayer WebSocket Cursor Presence**: Full CRDT (Y.js + WebSockets) for concurrent multi-caret typing was deprioritized to guarantee rock-solid single-source-of-truth persistence and access control within the 4–6 hour window.
+2. **Granular Inline Comment Threads**: Mentions and highlight-anchored comments were deferred in favor of core document workflows.
 
 ---
 
@@ -129,4 +123,4 @@ model DocumentShare {
 2. **Version History & Diff Viewer**:
    - UI drawer showing timestamped `DocumentVersion` snapshots with a visual diff comparison (green insertions / red deletions) and a "Restore this version" action.
 3. **Slash Commands (`/`)**:
-   - Notion-style floating command palette (`/h1`, `/ai`, `/table`, `/bullet`) for keyboard-first editing velocity.
+   - Notion-style floating command palette (`/h1`, `/table`, `/bullet`) for keyboard-first editing velocity.

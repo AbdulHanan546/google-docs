@@ -21,7 +21,6 @@ import {
   Code,
   Undo2,
   Redo2,
-  Sparkles,
   Share2,
   Download,
   Printer,
@@ -53,11 +52,8 @@ export function TipTapEditor({ documentId }: TipTapEditorProps) {
   const [saveStatus, setSaveStatus] = useState<"saved" | "saving" | "error" | "readonly">("saved");
   const [lastSavedTime, setLastSavedTime] = useState<string>("");
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
-  const [isAiLoading, setIsAiLoading] = useState(false);
-  const [aiActiveAction, setAiActiveAction] = useState<string | null>(null);
   const [exportDropdownOpen, setExportDropdownOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [aiToast, setAiToast] = useState<string | null>(null);
 
   const isViewer = documentData?.permission === "VIEWER";
   const isOwner = documentData?.isOwner || documentData?.ownerId === currentUser.id;
@@ -109,7 +105,7 @@ export function TipTapEditor({ documentId }: TipTapEditorProps) {
       }),
       Underline,
       Placeholder.configure({
-        placeholder: "Write something extraordinary, or click ✨ AI Copilot to generate...",
+        placeholder: "Type your document content here...",
       }),
       Link.configure({
         openOnClick: false,
@@ -188,52 +184,6 @@ export function TipTapEditor({ documentId }: TipTapEditorProps) {
     setTitle(newTitle);
     if (editor) {
       triggerDebouncedSave(newTitle, editor.getHTML());
-    }
-  };
-
-  // AI Copilot execution
-  const runAiAssistant = async (action: "summarize" | "polish" | "action-items" | "continue") => {
-    if (!editor || isViewer) return;
-    try {
-      setIsAiLoading(true);
-      setAiActiveAction(action);
-      setAiToast(`Running AI ${action}...`);
-
-      const currentContent = editor.getHTML();
-
-      const res = await fetch("/api/ai", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          action,
-          content: currentContent,
-          tone: "executive",
-        }),
-      });
-
-      if (!res.ok) throw new Error("AI request failed");
-
-      const data = await res.json();
-      const generatedHtml = data.result;
-
-      if (action === "polish") {
-        // Replace or append
-        editor.commands.setContent(generatedHtml);
-      } else {
-        // Append nicely to document
-        editor.commands.focus("end");
-        editor.commands.insertContent(`<br/>${generatedHtml}`);
-      }
-
-      setAiToast(`✨ AI ${action} applied successfully!`);
-      triggerDebouncedSave(title, editor.getHTML());
-    } catch (err) {
-      console.error(err);
-      setAiToast("AI generation failed. Please try again.");
-    } finally {
-      setIsAiLoading(false);
-      setAiActiveAction(null);
-      setTimeout(() => setAiToast(null), 3500);
     }
   };
 
@@ -561,60 +511,9 @@ export function TipTapEditor({ documentId }: TipTapEditorProps) {
             >
               <Code className="h-4 w-4" />
             </button>
-
-            {/* AI Assistant Quick Actions */}
-            <div className="ml-auto flex items-center gap-1.5">
-              <span className="text-[11px] font-semibold text-indigo-600 dark:text-indigo-400 flex items-center gap-1 mr-1">
-                <Sparkles className="h-3 w-3" /> AI Copilot:
-              </span>
-
-              <button
-                disabled={isAiLoading}
-                onClick={() => runAiAssistant("summarize")}
-                className="inline-flex items-center gap-1 rounded-md bg-zinc-100 px-2 py-1 text-[11px] font-medium text-zinc-700 hover:bg-indigo-50 hover:text-indigo-600 disabled:opacity-50 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-indigo-950/60 dark:hover:text-indigo-300 transition-colors"
-              >
-                {isAiLoading && aiActiveAction === "summarize" ? (
-                  <Loader2 className="h-3 w-3 animate-spin" />
-                ) : (
-                  "Summarize"
-                )}
-              </button>
-
-              <button
-                disabled={isAiLoading}
-                onClick={() => runAiAssistant("polish")}
-                className="inline-flex items-center gap-1 rounded-md bg-zinc-100 px-2 py-1 text-[11px] font-medium text-zinc-700 hover:bg-indigo-50 hover:text-indigo-600 disabled:opacity-50 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-indigo-950/60 dark:hover:text-indigo-300 transition-colors"
-              >
-                {isAiLoading && aiActiveAction === "polish" ? (
-                  <Loader2 className="h-3 w-3 animate-spin" />
-                ) : (
-                  "Polish"
-                )}
-              </button>
-
-              <button
-                disabled={isAiLoading}
-                onClick={() => runAiAssistant("action-items")}
-                className="inline-flex items-center gap-1 rounded-md bg-zinc-100 px-2 py-1 text-[11px] font-medium text-zinc-700 hover:bg-indigo-50 hover:text-indigo-600 disabled:opacity-50 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-indigo-950/60 dark:hover:text-indigo-300 transition-colors"
-              >
-                {isAiLoading && aiActiveAction === "action-items" ? (
-                  <Loader2 className="h-3 w-3 animate-spin" />
-                ) : (
-                  "Action Items"
-                )}
-              </button>
-            </div>
           </div>
         )}
       </div>
-
-      {/* AI Toast notification */}
-      {aiToast && (
-        <div className="fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-xl bg-zinc-900 px-4 py-2.5 text-xs font-medium text-white shadow-2xl dark:bg-white dark:text-zinc-950 animate-in slide-in-from-bottom-5">
-          <Sparkles className="h-4 w-4 text-amber-400" />
-          <span>{aiToast}</span>
-        </div>
-      )}
 
       {/* Read-Only Notice for Viewers */}
       {isViewer && (

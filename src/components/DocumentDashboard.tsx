@@ -119,44 +119,31 @@ export function DocumentDashboard() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      {/* Assessment Context Banner */}
-      <div className="mb-8 rounded-2xl border border-indigo-100 bg-gradient-to-r from-indigo-50/90 via-blue-50/50 to-purple-50/40 p-5 dark:border-indigo-950 dark:from-indigo-950/40 dark:via-blue-950/20 dark:to-purple-950/10">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div className="flex items-start gap-3">
-            <div className="rounded-xl bg-indigo-600 p-2.5 text-white shadow-md shadow-indigo-600/20">
-              <Sparkles className="h-5 w-5" />
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <h1 className="text-base font-bold text-zinc-900 dark:text-zinc-50">
-                  Ajaia AI-Native Document Workspace
-                </h1>
-                <span className="rounded-full bg-indigo-100 px-2.5 py-0.5 text-[11px] font-semibold text-indigo-800 dark:bg-indigo-900/60 dark:text-indigo-300">
-                  Live Assessment Build
-                </span>
-              </div>
-              <p className="mt-1 text-xs text-zinc-600 dark:text-zinc-400 max-w-2xl">
-                Logged in as <strong>{currentUser.name}</strong> ({currentUser.roleTitle}).
-                Switch users in the top-right header to test isolated ownership, role-based sharing (Viewer vs Editor), and live file imports.
-              </p>
-            </div>
-          </div>
-          <div className="flex items-center gap-2 shrink-0">
-            <button
-              onClick={() => setIsUploadOpen(true)}
-              className="inline-flex items-center gap-1.5 rounded-xl border border-zinc-200 bg-white px-3.5 py-2 text-xs font-semibold text-zinc-700 shadow-xs hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300 transition-colors"
-            >
-              <Upload className="h-4 w-4 text-zinc-500" />
-              Import .md / .txt
-            </button>
-            <button
-              onClick={handleCreateDocument}
-              className="inline-flex items-center gap-1.5 rounded-xl bg-indigo-600 px-4 py-2 text-xs font-semibold text-white shadow-md shadow-indigo-600/20 hover:bg-indigo-700 transition-colors"
-            >
-              <Plus className="h-4 w-4" />
-              New Document
-            </button>
-          </div>
+      {/* Page Header */}
+      <div className="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
+            Documents
+          </h1>
+          <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
+            Create, edit, and collaborate on shared team documents.
+          </p>
+        </div>
+        <div className="flex items-center gap-2.5 shrink-0">
+          <button
+            onClick={() => setIsUploadOpen(true)}
+            className="inline-flex items-center gap-1.5 rounded-xl border border-zinc-200 bg-white px-3.5 py-2 text-xs font-semibold text-zinc-700 shadow-xs hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300 transition-colors"
+          >
+            <Upload className="h-4 w-4 text-zinc-500" />
+            Import File
+          </button>
+          <button
+            onClick={handleCreateDocument}
+            className="inline-flex items-center gap-1.5 rounded-xl bg-indigo-600 px-4 py-2 text-xs font-semibold text-white shadow-md shadow-indigo-600/20 hover:bg-indigo-700 transition-colors"
+          >
+            <Plus className="h-4 w-4" />
+            New Document
+          </button>
         </div>
       </div>
 

@@ -35,7 +35,7 @@ export function Navbar({ onOpenUpload, isEditorPage }: NavbarProps) {
         },
         body: JSON.stringify({
           title: "Untitled Document",
-          content: "<p>Start typing or use the ✨ AI Copilot to generate ideas...</p>",
+          content: "<p>Start typing here...</p>",
           userId: currentUser.id,
         }),
       });
@@ -63,15 +63,9 @@ export function Navbar({ onOpenUpload, isEditorPage }: NavbarProps) {
             <div className="flex flex-col">
               <div className="flex items-center gap-1.5">
                 <span className="text-lg font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
-                  AJAIA
-                </span>
-                <span className="rounded-full bg-indigo-50 px-2 py-0.5 text-[10px] font-semibold text-indigo-700 ring-1 ring-inset ring-indigo-700/10 dark:bg-indigo-950/60 dark:text-indigo-400 dark:ring-indigo-400/20">
-                  Docs AI
+                  Ajaia Docs
                 </span>
               </div>
-              <span className="text-[11px] text-zinc-500 dark:text-zinc-400 hidden sm:inline">
-                Collaborative Intelligence
-              </span>
             </div>
           </Link>
         </div>
@@ -131,7 +125,7 @@ export function Navbar({ onOpenUpload, isEditorPage }: NavbarProps) {
                 <div className="absolute right-0 z-50 mt-2 w-64 origin-top-right rounded-xl border border-zinc-200 bg-white p-2 shadow-xl dark:border-zinc-800 dark:bg-zinc-900 animate-in fade-in zoom-in-95 duration-100">
                   <div className="px-2 py-1.5 border-b border-zinc-100 dark:border-zinc-800 mb-1">
                     <p className="text-[11px] font-medium text-zinc-500 dark:text-zinc-400">
-                      Switch Active User (Assessment Mode)
+                      Switch Active User
                     </p>
                   </div>
                   {allUsers.map((user) => {

@@ -9,5 +9,5 @@ Video Outline (3-5 minutes):
 2. [0:45 - 1:45] Document Editing & Rich Text Formatting (TipTap toolbar, inline title rename, autosave persistence).
 3. [1:45 - 2:30] File Import (.md/.txt) demonstrating drag-and-drop parsing into an active editable draft.
 4. [2:30 - 3:15] Granular Sharing & Access Control (Owner vs Editor vs Viewer, switching users to demonstrate access enforcement).
-5. [3:15 - 4:00] Native AI Copilot features (✨ Summarize, ✨ Polish, ✨ Action Items) & 1-click Markdown/PDF Export.
-6. [4:00 - 4:45] Key architectural decisions, trade-offs, and mature AI workflow.
+5. [3:15 - 4:00] Document Export (1-click Markdown & Print/PDF) and permission error handling.
+6. [4:00 - 4:45] Key architectural decisions, database schema, trade-offs, and mature AI workflow reflection.

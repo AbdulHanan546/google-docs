@@ -130,23 +130,6 @@
   padding: 0;
 }
 
-/* AI Generated Content styling */
-.ai-generated-block,
-.ai-action-items,
-.ai-response-wrapper {
-  border-left: 3px solid #818cf8;
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.06), rgba(168, 85, 247, 0.04));
-  border-radius: 0.75rem;
-  padding: 1rem 1.25rem;
-  margin: 1.25rem 0;
-}
-
-.ai-generated-block h3,
-.ai-action-items h3 {
-  color: #4f46e5 !important;
-  font-weight: 700;
-  margin-top: 0 !important;
-}
 
 @media print {
   body {

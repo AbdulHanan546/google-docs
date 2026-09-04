@@ -13,11 +13,11 @@
 To ensure immediate, frictionless testing without setting up credentials, the application includes an **in-app User Switcher** in the top-right header:
 
 - **Alice Chen** (`user_alice`) — *Product Lead*
-  - **Owned**: *Ajaia AI Productivity Suite - Q3 Roadmap*
-  - **Shared with Alice**: *Design System Tokens* (Viewer role)
+  - **Owned**: *Q3 Product Velocity Roadmap*
+  - **Shared with Alice**: *Design System Tokens & Accessibility Standards* (Viewer role)
 - **Bob Miller** (`user_bob`) — *Staff Designer*
   - **Owned**: *Design System Tokens & Accessibility Standards*
-  - **Shared with Bob**: *Ajaia AI Productivity Suite - Q3 Roadmap* (Editor role)
+  - **Shared with Bob**: *Q3 Product Velocity Roadmap* (Editor role)
 - **Charlie Patel** (`user_charlie`) — *Founding Engineer*
   - **Owned**: *Infrastructure & DB Engine Evaluation* (Private, unshared)
 
@@ -26,8 +26,8 @@ To ensure immediate, frictionless testing without setting up credentials, the ap
 ## 2. Core Capabilities Implemented
 
 ### A. Document Creation & Rich Text Editing
-- **TipTap / ProseMirror Engine**: Full heading hierarchy (H1, H2, H3), bold, italic, underline, bulleted lists, numbered lists, blockquotes, code blocks.
-- **Inline Title Renaming**: Changes reflect in real-time in document canvas and top navigation.
+- **TipTap / ProseMirror Engine**: Headings (H1, H2, H3), bold, italic, underline, bulleted lists, numbered lists, blockquotes, code blocks.
+- **Inline Title Renaming**: Changes update and persist automatically on blur or typing.
 - **Persistent Autosave**: Debounced background persistence with visual cloud indicators (`Saving...` $\rightarrow$ `Saved at hh:mm:ss`).
 - **Read-Only Mode**: When viewed by a user with `VIEWER` permission, editing is disabled and an informative banner is displayed.
 
@@ -38,17 +38,11 @@ To ensure immediate, frictionless testing without setting up credentials, the ap
 ### C. Granular Sharing & Access Control
 - **Explicit Document Ownership**: Clear visual categorization on dashboard ("Owned by me" vs "Shared with me").
 - **Permission Levels**: Document owners can grant collaborator access with explicit roles:
-  - **Editor**: Full editing capabilities and AI copilot access.
+  - **Editor**: Full editing capabilities.
   - **Viewer**: Read-only access with locked toolbar.
 - **Revoke Access**: Owners can remove collaborators at any time.
 
-### D. AI-Native Copilot Features
-- **✨ Summarize Document**: Injects an executive bulleted summary directly into the document.
-- **✨ Polish & Refine**: Rewrites content for clarity and executive tone.
-- **✨ Action Item Extractor**: Parses notes into a checklist with assignees.
-- **Resilient Dual-Mode Engine**: Connects to Gemini/OpenAI if an API key is present, and gracefully uses an embedded deterministic transformer engine if unkeyed, guaranteeing zero downtime during evaluation.
-
-### E. Export Capabilities
+### D. Export Capabilities
 - **1-Click Export to Markdown (.md)**: Downloads current document cleanly.
 - **Print / PDF**: Pre-configured print styles for clean document printing.
 
@@ -67,7 +61,7 @@ To ensure immediate, frictionless testing without setting up credentials, the ap
 1. **TipTap over `contenteditable`**: Chosen to guarantee clean AST serialization and prevent browser DOM discrepancies.
 2. **SQLite + Prisma over In-Memory State**: Chosen to guarantee real persistence across page reloads and user switching.
 3. **Seeded Switcher over Third-Party Auth**: Avoids OAuth callback configuration and email verification friction for reviewers.
-4. **Scope Prioritization**: Real-time multi-cursor WebSocket presence was intentionally deprioritized to focus deeply on rock-solid document editing, file conversion, access control, and AI integration.
+4. **Scope Prioritization**: Real-time multi-cursor WebSocket presence was intentionally deprioritized to focus deeply on rock-solid document editing, file conversion, access control, and persistence within the time limit.
 
 ---
 
@@ -78,7 +72,6 @@ To ensure immediate, frictionless testing without setting up credentials, the ap
 - **Outputs Rejected / Modified**:
   - Rejected custom in-memory WebSocket server in favor of durable SQLite persistence.
   - Decoupled server/client auth boundaries to prevent Turbopack build errors.
-  - Replaced single-provider AI API calls with a resilient fallback engine.
 
 ---
 
