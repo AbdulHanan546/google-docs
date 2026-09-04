@@ -1,36 +1,108 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Ajaia Docs — AI-Native Collaborative Document Editor
 
-## Getting Started
+> A lightweight, collaborative document workspace inspired by Google Docs, built for **Ajaia LLC's AI-Native Full Stack Developer Assessment**.
 
-First, run the development server:
+---
 
+## 🌟 Quick Start (Under 60 Seconds)
+
+### 1. Prerequisites
+- **Node.js**: v18+ (Tested on Node v20 & v24)
+- **npm**: v9+
+
+### 2. Install Dependencies & Setup Database
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Clone or navigate to the workspace
+cd ajai
+
+# Install dependencies
+npm install
+
+# Push SQLite schema and seed mock accounts & starter documents
+npx prisma db push
+npm run seed
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 3. Run Development Server
+```bash
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 4. Run Automated Test Suite
+```bash
+npm test
+```
+Runs the Vitest suite covering permissions, access control, and markdown parsing.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 👥 Seeded Evaluation Accounts (Instant User Switcher)
 
-To learn more about Next.js, take a look at the following resources:
+To provide zero-friction review without requiring manual registration or auth setup, the app features an **Instant User Switcher** in the top-right header:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| User | Role | Default Accessible Documents |
+| :--- | :--- | :--- |
+| **Alice Chen** | *Product Lead* | • **Owner**: *Ajaia AI Productivity Suite - Q3 Roadmap*<br/>• **Viewer**: *Design System Tokens & Accessibility Standards* |
+| **Bob Miller** | *Staff Designer* | • **Owner**: *Design System Tokens & Accessibility Standards*<br/>• **Editor**: *Ajaia AI Productivity Suite - Q3 Roadmap* |
+| **Charlie Patel** | *Founding Engineer*| • **Owner**: *Infrastructure & DB Engine Evaluation (Internal)* (Private) |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Switching users immediately updates dashboard permissions, read/write access, and available documents.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🚀 Core Capabilities Implemented
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 1. Document Creation & Rich Text Editing
+- **Create, Rename & Reopen**: Full document lifecycle with real-time inline renaming.
+- **Rich-Text Formatting (TipTap / ProseMirror)**:
+  - Headings (`H1`, `H2`, `H3`)
+  - Typography: **Bold**, *Italic*, <u>Underline</u>, Inline Code, Blockquote, Code Blocks
+  - Lists: Bulleted lists (`<ul>`) and Numbered lists (`<ol>`)
+  - Undo / Redo history
+- **Autosave Engine**: Debounced background persistence with real-time status indicators (`Saving...` $\rightarrow$ `Saved at hh:mm:ss`).
+
+### 2. File Upload & Import
+- **File Upload Modal**: Accessible via the "Import File" button on the dashboard.
+- **Drag & Drop**: Supports `.md`, `.markdown`, and `.txt` files.
+- **Parser Engine**: Converts markdown structures (headings, bold, lists, quotes) directly into editable TipTap document nodes with live preview before creation.
+
+### 3. Granular Sharing & Access Control
+- **Document Ownership**: Documents clearly designated as "Owned by me" vs "Shared with me".
+- **Collaborator Management**: Document owners can grant access to team members with explicit roles:
+  - **Editor**: Can modify document title, body content, and run AI tools.
+  - **Viewer**: Read-only access. Toolbar is locked, and a view-only warning banner is displayed.
+- **Revocation**: Document owners can remove collaborator access in one click.
+
+### 4. Native AI Copilot Toolbar
+- **✨ Summarize Document**: Generates an executive summary with key takeaways directly inside the document.
+- **✨ Polish & Refine**: Rewrites document content for clarity and executive tone.
+- **✨ Action Item Extractor**: Identifies tasks, deliverables, and assignees.
+- *Resilience*: Works with Google Gemini / OpenAI API keys, with an embedded deterministic fallback engine to guarantee 100% testability without API key dependencies.
+
+### 5. Export & Sharing
+- **1-Click Export to Markdown**: Downloads the current document as a clean `.md` file.
+- **Print / PDF**: Formats document for clean, distraction-free printing or PDF generation.
+
+---
+
+## 🧪 Automated Testing
+
+Run the automated test suite:
+```bash
+npm test
+```
+The test suite validates:
+- `src/tests/permissions.test.ts`: Owner full control, shared editor write rights, shared viewer read-only enforcement, and 403 access denial for uninvited users.
+- `src/tests/fileParsers.test.ts`: Markdown title extraction, heading levels, inline styles, bullet/numbered lists, and plain text paragraph wrapping.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Framework**: Next.js 16 (App Router, TypeScript)
+- **Editor Engine**: TipTap 3 & ProseMirror
+- **Database & ORM**: SQLite + Prisma 6
+- **Styling**: Tailwind CSS + Custom Prose Styling
+- **Icons**: Lucide React
+- **Test Runner**: Vitest
