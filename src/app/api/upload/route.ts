@@ -2,9 +2,11 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { getCurrentUserFromHeaders } from "@/lib/auth-server";
 import { parseMarkdownToHtml, parsePlainTextToHtml } from "@/lib/fileParsers";
+import { ensureDatabaseSeeded } from "@/lib/ensure-seed";
 
 export async function POST(request: Request) {
   try {
+    await ensureDatabaseSeeded();
     const currentUser = await getCurrentUserFromHeaders();
     const formData = await request.formData();
     const file = formData.get("file") as File | null;

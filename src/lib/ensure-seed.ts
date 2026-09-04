@@ -9,7 +9,56 @@ export async function ensureDatabaseSeeded() {
 
   isSeedingPromise = (async () => {
     try {
-      // Check if documents already exist
+      // 1. Ensure SQLite schema tables exist (vital for serverless /tmp/dev.db)
+      await prisma.$executeRawUnsafe(`
+        CREATE TABLE IF NOT EXISTS User (
+          id TEXT PRIMARY KEY,
+          name TEXT NOT NULL,
+          email TEXT UNIQUE NOT NULL,
+          avatar TEXT NOT NULL,
+          roleTitle TEXT NOT NULL,
+          createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+        );
+      `);
+
+      await prisma.$executeRawUnsafe(`
+        CREATE TABLE IF NOT EXISTS Document (
+          id TEXT PRIMARY KEY,
+          title TEXT NOT NULL DEFAULT 'Untitled Document',
+          content TEXT NOT NULL DEFAULT '',
+          ownerId TEXT NOT NULL,
+          createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+          updatedAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+          FOREIGN KEY (ownerId) REFERENCES User(id) ON DELETE CASCADE
+        );
+      `);
+
+      await prisma.$executeRawUnsafe(`
+        CREATE TABLE IF NOT EXISTS DocumentShare (
+          id TEXT PRIMARY KEY,
+          documentId TEXT NOT NULL,
+          userId TEXT NOT NULL,
+          permission TEXT NOT NULL DEFAULT 'EDITOR',
+          createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+          UNIQUE(documentId, userId),
+          FOREIGN KEY (documentId) REFERENCES Document(id) ON DELETE CASCADE,
+          FOREIGN KEY (userId) REFERENCES User(id) ON DELETE CASCADE
+        );
+      `);
+
+      await prisma.$executeRawUnsafe(`
+        CREATE TABLE IF NOT EXISTS DocumentVersion (
+          id TEXT PRIMARY KEY,
+          documentId TEXT NOT NULL,
+          title TEXT NOT NULL,
+          content TEXT NOT NULL,
+          createdById TEXT NOT NULL,
+          createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+          FOREIGN KEY (documentId) REFERENCES Document(id) ON DELETE CASCADE
+        );
+      `);
+
+      // 2. Check if documents already exist
       const existingDocCount = await prisma.document.count().catch(() => 0);
       if (existingDocCount > 0) {
         return;

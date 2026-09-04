@@ -60,6 +60,7 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   try {
+    await ensureDatabaseSeeded();
     const currentUser = await getCurrentUserFromHeaders();
     const body = await request.json();
     const { title = "Untitled Document", content = "<p></p>", userId = currentUser.id } = body;
