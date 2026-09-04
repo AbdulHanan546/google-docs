@@ -1,9 +1,11 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { getCurrentUserFromHeaders } from "@/lib/auth-server";
+import { ensureDatabaseSeeded } from "@/lib/ensure-seed";
 
 export async function GET(request: Request) {
   try {
+    await ensureDatabaseSeeded();
     const currentUser = await getCurrentUserFromHeaders();
     const { searchParams } = new URL(request.url);
     const userId = searchParams.get("userId") || currentUser.id;
