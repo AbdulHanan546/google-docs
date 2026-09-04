@@ -5,7 +5,7 @@
 **Google Drive Submission Folder**: `[Insert Google Drive Link Here]`  
 **GitHub Repository**: https://github.com/AbdulHanan546/google-docs  
 **Walkthrough Video**: `[Insert Loom / YouTube Link Here]`  
-**Live Deployed Application**: `[Insert Vercel / Deployed URL Here]`  
+**Live Deployed Application**: https://google-docs-sand.vercel.app  
 
 ---
 
