@@ -4,7 +4,7 @@
 **Email**: abdlhanan987@gmail.com  
 **Google Drive Submission Folder**: `[Insert Google Drive Link Here]`  
 **GitHub Repository**: https://github.com/AbdulHanan546/google-docs  
-**Walkthrough Video**: `[Insert Loom / YouTube Link Here]`  
+**Walkthrough Video**: https://www.youtube.com/watch?v=8e36G_C1A_8  
 **Live Deployed Application**: https://google-docs-sand.vercel.app  
 
 ---

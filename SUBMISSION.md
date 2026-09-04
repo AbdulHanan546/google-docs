@@ -42,7 +42,7 @@ To review the application without registration friction, use the **User Switcher
 
 - **GitHub Repository**: https://github.com/AbdulHanan546/google-docs
 - **Live Deployment URL**: https://google-docs-sand.vercel.app
-- **Walkthrough Video**: See [`WALKTHROUGH_URL.txt`](./WALKTHROUGH_URL.txt)
+- **Walkthrough Video**: https://www.youtube.com/watch?v=8e36G_C1A_8 (also in [`WALKTHROUGH_URL.txt`](./WALKTHROUGH_URL.txt))
 - **Local Startup Command**:
   ```bash
   npm install && npx prisma db push && npm run seed && npm run dev
