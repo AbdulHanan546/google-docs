@@ -40,6 +40,7 @@ To review the application without registration friction, use the **User Switcher
 
 ## 🚀 Live Product URL & Repository
 
+- **GitHub Repository**: https://github.com/AbdulHanan546/google-docs
 - **Live Deployment URL**: `https://ajai-docs-production.vercel.app` *(or custom deployed URL)*
 - **Walkthrough Video**: See [`WALKTHROUGH_URL.txt`](./WALKTHROUGH_URL.txt)
 - **Local Startup Command**:
